@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="flashFill" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.5" stop-color="#FFE783"/>
+      <stop offset="1" stop-color="#FFAE1F"/>
+    </radialGradient>
+  </defs>
+  <!-- 八角爆闪：两个四角星叠加 -->
+  <g fill="#1B2027" stroke="#1B2027" stroke-width="6" stroke-linejoin="round">
+    <path d="M32 3 L37 27 L61 32 L37 37 L32 61 L27 37 L3 32 L27 27 Z"/>
+    <path transform="rotate(45 32 32)" d="M32 3 L37 27 L61 32 L37 37 L32 61 L27 37 L3 32 L27 27 Z"/>
+  </g>
+  <g fill="url(#flashFill)">
+    <path d="M32 3 L37 27 L61 32 L37 37 L32 61 L27 37 L3 32 L27 27 Z"/>
+    <path transform="rotate(45 32 32)" d="M32 3 L37 27 L61 32 L37 37 L32 61 L27 37 L3 32 L27 27 Z"/>
+  </g>
+</svg>

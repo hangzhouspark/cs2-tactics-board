@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="c4Fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5C6675"/>
+      <stop offset="1" stop-color="#323A45"/>
+    </linearGradient>
+  </defs>
+  <!-- 炸药包本体 -->
+  <rect x="5" y="21" width="54" height="30" rx="5" fill="#1B2027" stroke="#1B2027" stroke-width="6"/>
+  <rect x="5" y="21" width="54" height="30" rx="5" fill="url(#c4Fill)"/>
+  <!-- 计时器屏幕 -->
+  <rect x="10" y="27" width="21" height="13" rx="2" fill="#0C0F13"/>
+  <g fill="#FF4B3E">
+    <rect x="13" y="30" width="3.4" height="7"/>
+    <rect x="18.3" y="30" width="3.4" height="7"/>
+    <rect x="23.6" y="30" width="3.4" height="7"/>
+  </g>
+  <!-- 按键 -->
+  <g fill="#8E99A8">
+    <rect x="36" y="27" width="6.5" height="5.5" rx="1.2"/>
+    <rect x="45.5" y="27" width="6.5" height="5.5" rx="1.2"/>
+    <rect x="36" y="35.5" width="6.5" height="5.5" rx="1.2"/>
+    <rect x="45.5" y="35.5" width="6.5" height="5.5" rx="1.2"/>
+  </g>
+  <!-- 引线 -->
+  <path d="M20 21 v-8 h9" fill="none" stroke="#1B2027" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 21 v-8 h9" fill="none" stroke="#DCE3EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

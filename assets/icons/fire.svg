@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="fireFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD166"/>
+      <stop offset="0.5" stop-color="#FF8A3D"/>
+      <stop offset="1" stop-color="#DE3C1C"/>
+    </linearGradient>
+  </defs>
+  <!-- 外焰 -->
+  <path d="M32 4 C41 17 53 22 53 37 a21 21 0 0 1 -42 0 C11 22 23 17 32 4 Z"
+        fill="#1B2027" stroke="#1B2027" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M32 4 C41 17 53 22 53 37 a21 21 0 0 1 -42 0 C11 22 23 17 32 4 Z"
+        fill="url(#fireFill)"/>
+  <!-- 内焰 -->
+  <path d="M32 22 C36 30 41 33 41 41 a9 9 0 0 1 -18 0 C23 33 28 30 32 22 Z"
+        fill="#FFF3BE" opacity="0.92"/>
+</svg>

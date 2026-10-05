@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="heFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4796A"/>
+      <stop offset="1" stop-color="#BE382B"/>
+    </linearGradient>
+    <clipPath id="heBody">
+      <rect x="17" y="17" width="30" height="37" rx="15"/>
+    </clipPath>
+  </defs>
+  <!-- 弹体轮廓 -->
+  <rect x="17" y="17" width="30" height="37" rx="15" fill="#1B2027" stroke="#1B2027" stroke-width="6"/>
+  <rect x="17" y="17" width="30" height="37" rx="15" fill="url(#heFill)"/>
+  <!-- 破片刻纹 -->
+  <g clip-path="url(#heBody)" stroke="#8C2A20" stroke-width="2.4" opacity="0.9">
+    <path d="M11 25 H53"/>
+    <path d="M11 33 H53"/>
+    <path d="M11 41 H53"/>
+    <path d="M11 49 H53"/>
+    <path d="M25 12 V58"/>
+    <path d="M33 12 V58"/>
+    <path d="M41 12 V58"/>
+  </g>
+  <!-- 引信与保险环 -->
+  <rect x="25" y="7" width="14" height="9" rx="3" fill="#1B2027"/>
+  <rect x="26.5" y="8.5" width="11" height="6" rx="2" fill="#C8D0D9"/>
+  <path d="M39 12 h6 a5.5 5.5 0 0 1 0 11 h-6" fill="none" stroke="#1B2027" stroke-width="5" stroke-linecap="round"/>
+  <path d="M39 12 h6 a5.5 5.5 0 0 1 0 11 h-6" fill="none" stroke="#C8D0D9" stroke-width="2.6" stroke-linecap="round"/>
+</svg>

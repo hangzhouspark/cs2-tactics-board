@@ -1,0 +1,17 @@
+# ---- 自测与开发过程产物 ----
+_ref/
+_harness.html
+_visual.html
+
+# ---- 导出产物（保留文件夹与说明文件，忽略实际导出的文件）----
+导出图片/*.png
+导出图片/*.json
+导出战术/*.png
+导出战术/*.json
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store

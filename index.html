@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>CS2 战术板</title>
+<link rel="icon" type="image/png" sizes="512x512" href="assets/icons/cs2.png">
+<link rel="apple-touch-icon" href="assets/icons/cs2.png">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============ 顶栏 ============ -->
+<header class="topbar">
+  <div class="brand">
+    <img class="brand-mark" src="assets/icons/cs2.png" alt="CS2">
+    <span class="brand-name">CS2 战术板</span>
+  </div>
+
+  <div class="topbar-center">
+    <button class="icon-btn" id="btnUndo" title="撤销上一步" aria-label="撤销">
+      <svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>
+    </button>
+    <button class="icon-btn" id="btnRedo" title="重做下一步" aria-label="重做">
+      <svg viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg>
+    </button>
+    <span class="sep"></span>
+    <button class="text-btn danger" id="btnClearAll" title="清空全部对象">清空</button>
+  </div>
+
+  <div class="topbar-right">
+    <button class="text-btn" id="btnImport" title="导入本地战术文件">导入</button>
+    <button class="text-btn" id="btnSaveLocal" title="保存到浏览器本地">保存</button>
+    <button class="text-btn" id="btnExportJson" title="导出为 .json 战术文件">导出战术</button>
+    <button class="text-btn primary" id="btnExportPng" title="导出 PNG 图片">导出图片</button>
+    <span class="sep"></span>
+    <button class="icon-btn" id="btnHelp" title="操作说明" aria-label="帮助">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.5v.3"/><path d="M12 17h.01"/></svg>
+    </button>
+    <button class="icon-btn" id="btnCollapse" title="收起 / 展开侧栏" aria-label="收起侧栏">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ 主体 ============ -->
+<div class="app" id="app">
+
+  <!-- ---------- 侧栏 ---------- -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- 地图 -->
+    <section class="panel">
+      <h2 class="panel-title">地图</h2>
+      <div class="map-current">
+        <span class="map-current-icon">🗺️</span>
+        <span class="map-current-name" id="mapCurrentName">荒漠迷城</span>
+      </div>
+      <div class="map-grid" id="mapGrid"><!-- JS 注入 --></div>
+      <p class="tip">按住缩略图拖动即可调整地图顺序，顺序会记住。</p>
+    </section>
+
+    <!-- 导出位置 -->
+    <section class="panel">
+      <h2 class="panel-title">导出位置</h2>
+      <div class="save-status">
+        <span class="save-badge" id="saveBadge">检测中…</span>
+        <span class="save-path">导出图片\ · 导出战术\</span>
+      </div>
+      <p class="tip">检测到本地服务时，导出的 PNG 与战术文件会直接写进项目里的这两个文件夹；否则会存到浏览器默认下载目录。</p>
+    </section>
+
+    <!-- 绘图工具 -->
+    <section class="panel">
+      <h2 class="panel-title">绘图工具</h2>
+      <div class="tool-grid" id="toolGrid"><!-- JS 注入 --></div>
+
+      <h3 class="sub-title">颜色</h3>
+      <div class="color-grid" id="colorGrid"><!-- JS 注入 --></div>
+
+      <h3 class="sub-title">粗细 <span class="sub-hint" id="widthValue">3 px</span></h3>
+      <input type="range" id="widthRange" class="range" min="2" max="24" step="1" value="3">
+    </section>
+
+    <!-- 战术对象 -->
+    <section class="panel">
+      <h2 class="panel-title">战术对象</h2>
+
+      <h3 class="sub-title">队员</h3>
+      <div class="entity-grid" id="teamGrid"><!-- JS 注入 --></div>
+
+      <h3 class="sub-title">道具与炸弹</h3>
+      <div class="entity-grid" id="utilGrid"><!-- JS 注入 --></div>
+
+      <p class="tip">点击图标后在地图上落点，或直接把图标拖到地图上。</p>
+    </section>
+  </aside>
+
+  <!-- ---------- 画布 ---------- -->
+  <main class="stage" id="stage">
+    <div class="viewport" id="viewport">
+      <div class="board" id="board">
+        <img class="board-radar" id="boardRadar" alt="" draggable="false">
+        <div class="layer-draw" id="layerDraw"><!-- SVG 注入 --></div>
+        <div class="layer-entity" id="layerEntity"><!-- JS 注入 --></div>
+      </div>
+    </div>
+
+    <div class="hud hud-left">
+      <span class="hud-chip" id="hudMode">工具：移动</span>
+      <span class="hud-chip" id="hudCount">对象：0</span>
+    </div>
+
+    <div class="hud hud-right">
+      <button class="icon-btn small" id="btnZoomOut" title="缩小">−</button>
+      <span class="hud-chip" id="hudZoom">100%</span>
+      <button class="icon-btn small" id="btnZoomIn" title="放大">+</button>
+      <button class="icon-btn small" id="btnZoomReset" title="重置视图">⤾</button>
+    </div>
+
+    <div class="stage-hint" id="stageHint">选择左侧工具开始布置战术</div>
+  </main>
+</div>
+
+<!-- ============ 右键菜单 ============ -->
+<div class="context-menu" id="contextMenu" hidden>
+  <button data-act="rotate-cw" class="util-only">顺时针旋转 15°</button>
+  <button data-act="rotate-ccw" class="util-only">逆时针旋转 15°</button>
+  <button data-act="scale-up" class="util-only">放大图标</button>
+  <button data-act="scale-down" class="util-only">缩小图标</button>
+  <button data-act="duplicate">复制对象</button>
+  <button data-act="bring-front">置于最前</button>
+  <button data-act="delete" class="danger">删除对象</button>
+</div>
+
+<!-- ============ 帮助弹窗 ============ -->
+<div class="modal-mask" id="helpModal" hidden>
+  <div class="modal">
+    <header class="modal-head">
+      <h2>操作说明</h2>
+      <button class="icon-btn" id="btnHelpClose" aria-label="关闭">✕</button>
+    </header>
+    <div class="modal-body">
+      <h3>基本流程</h3>
+      <ol>
+        <li>在左侧「地图」中选择一张地图；按住缩略图拖动可以调整地图顺序。</li>
+        <li>选择绘图工具，在地图上画出进攻路线、烟雾墙、卡点等。</li>
+        <li>在「战术对象」中点击队员或道具图标，然后在地图上点击落点；再点一次图标可取消放置。</li>
+        <li>点击道具图标选中后，拖动右下角的方块手柄即可随意调整大小；也可以用右键菜单的「放大图标 / 缩小图标」。</li>
+        <li>拖动对象可移动位置；右键对象可旋转、复制或删除。</li>
+        <li>使用顶栏「导出图片」把战术图保存为 PNG 分享给队友。</li>
+      </ol>
+      <h3>说明</h3>
+      <p>本项目为纯本地静态页面，所有数据保存在你自己的浏览器中，不会上传到任何服务器。</p>
+      <p>不提供键盘快捷键，全部操作都通过鼠标点击、拖动与右键菜单完成。</p>
+      <p>地图雷达图取自 scope.gg 战术板，道具图标为项目自绘矢量图，仅用于个人战术讨论与学习。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 提示条 ============ -->
+<div class="toast" id="toast" hidden></div>
+
+<input type="file" id="fileInput" accept=".json,application/json" hidden>
+
+<script src="js/maps.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
